@@ -5,8 +5,9 @@ Codepen:
 
 I found 2 frameworks on github for the MIDI thing:
 
-- https://github.com/walmik/scribbletune - looks easier
-- https://github.com/grimmdude/MidiWriterJS - the developer seems cool
+- https://github.com/grimmdude/MidiWriterJS - * going with this one - works, seems better for rhythm.
+- https://github.com/walmik/scribbletune - (in case above doesn't work)
+
 
 I was looking into the best way to 'require' node modules in sites, and standard practice seems to be using browserify.org
 
