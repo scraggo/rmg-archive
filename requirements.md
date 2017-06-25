@@ -17,3 +17,9 @@ Making a file available for download:
 * [Using HTML5/Javascript to generate and save a file - Stack Overflow](https://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file)
 * [How to create a file and generate a download with Javascript in the Browser (without a server) | Our Code World](http://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server)
 * [JavaScript – Creating A Downloadable File in the Browser – Chris West's Blog](http://cwestblog.com/2014/10/21/javascript-creating-a-downloadable-file-in-the-browser/)
+
+Server ideas:
+
+- Github pages
+- Heroku
+- ?
