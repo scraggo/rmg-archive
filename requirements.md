@@ -18,6 +18,8 @@ Making a file available for download:
 * [How to create a file and generate a download with Javascript in the Browser (without a server) | Our Code World](http://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server)
 * [JavaScript – Creating A Downloadable File in the Browser – Chris West's Blog](http://cwestblog.com/2014/10/21/javascript-creating-a-downloadable-file-in-the-browser/)
 
+The data URI ideas I've seen work before. Depends how file is encoded.
+
 Server ideas:
 
 - Github pages
