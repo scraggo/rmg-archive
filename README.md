@@ -16,6 +16,9 @@ Accept pull request
 Switch to main branch  
 do ```npm install``` to have new dependencies download for you.  
 do ```npm run watch``` to have docs/bundle.js recompiled from docs/main.js whenever it changes.  
+Looks like a good idea to terminate the watch before switching brances.
 
 and see if everything works as expected.
 My first time properly dabbling with all of this also :)
+
+In theory should be possible to delete local copy. Clone this. and ```npm``` install will bring you back to where you need to be.
