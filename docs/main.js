@@ -16,7 +16,6 @@ track.addEvent([
 );
 
 var write = new MidiWriter.Writer([track]);
-console.log(write.dataUri());
 
 window.hotCrossBun = function() {
   return write.dataUri();
