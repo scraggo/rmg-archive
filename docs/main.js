@@ -31,13 +31,13 @@ window.trulyRandom = function() {
   var track = new MidiWriter.Track();
 
   let noteArray = [];
-  let durations = ['1', '2', '4', '8'];
+  let durations = ['2','4', '8'];
 
   for (let i=0; i<50; i++) {
-    let notesHeld = getRandomInt(1, 8);
+    let notesHeld = getRandomInt(1, 12);
     let pitch = [];
     for (let j=0; j<notesHeld; j++) {
-      pitch.push(getRandomInt(0, 127));
+      pitch.push(getRandomInt(20, 100));
     }
     let duration = durations[getRandomInt(0,3)];
     let note = new MidiWriter.NoteEvent({pitch, duration});
@@ -45,7 +45,7 @@ window.trulyRandom = function() {
   }
 
   track.addEvent(noteArray, function(event, index) {
-      return {sequential:true};
+      return {sequential:false};
     }
   );
 
