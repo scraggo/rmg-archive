@@ -73,7 +73,7 @@ window.melodyTest = function() {
 
 
   for (let i=0; i<melody.length; i++) {
-    let pitchNum = melody[i][3];//the arrow is some weird $#% thing
+    let pitchNum = melody[i][1];//the arrow is some weird $#% thing
     let pitchLetter = pitchMap[pitchNum];
     let pitch = [pitchLetter + '4']
     console.log(pitch, duration);
