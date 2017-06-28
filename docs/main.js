@@ -66,6 +66,12 @@ window.melodyTest = function() {
   let pitchMap = { '1': 'C', '2': 'D', '3': 'E', '4': 'F', '5': 'G', '6': 'A', '7': 'B'};
   let duration = 2;
   
+  console.log(melody[0]);
+  console.log(melody[0][1]);
+  console.log(melody[0][3]);
+  console.log(melody[0].split(""));
+
+
   for (let i=0; i<melody.length; i++) {
     let pitchNum = melody[i][3];//the arrow is some weird $#% thing
     let pitchLetter = pitchMap[pitchNum];
@@ -73,12 +79,11 @@ window.melodyTest = function() {
     console.log(pitch, duration);
     let note = new MidiWriter.NoteEvent({pitch, duration});
     noteArray.push(note);
-    }
+  }
     
-    track.addEvent(noteArray, function(event, index) {
-      return {sequential:true};
-    }
-  );
+  track.addEvent(noteArray, function(event, index) {
+    return {sequential:true};
+  });
 
   var write = new MidiWriter.Writer([track]);
 
