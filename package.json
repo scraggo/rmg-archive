@@ -1,0 +1,21 @@
+{
+  "name": "random-music-generators",
+  "version": "0.0.1",
+  "description": "Random Midi File Generation",
+  "main": "docs/index.html",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "midi-writer-js": "^1.4.7",
+    "watchify": "^3.9.0"
+  },
+  "devDependencies": {
+    "browserify": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify docs/main.js -o docs/bundle.js",
+    "watch": "watchify docs/main.js -o docs/bundle.js --debug --verbose"
+  }
+}
