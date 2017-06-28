@@ -53,3 +53,36 @@ window.trulyRandom = function() {
 
   return write.dataUri();
 }
+
+
+
+
+
+//melody test
+window.melodyTest = function() {
+  var track = new MidiWriter.Track();
+  let noteArray = [];
+  let melody = ['↑5', '↑6', '↓5', '↑2', '↑1', '↓5', '↓5', '↓2'];
+  let pitchMap = { '1': 'C', '2': 'D', '3': 'E', '4': 'F', '5': 'G', '6': 'A', '7': 'B'};
+  let duration = 2;
+  
+  for (let i=0; i<melody.length; i++) {
+    let pitchNum = melody[i][3];//the arrow is some weird $#% thing
+    let pitchLetter = pitchMap[pitchNum];
+    let pitch = [pitchLetter + '4']
+    console.log(pitch, duration);
+    let note = new MidiWriter.NoteEvent({pitch, duration});
+    noteArray.push(note);
+    }
+    
+    track.addEvent(noteArray, function(event, index) {
+      return {sequential:true};
+    }
+  );
+
+  var write = new MidiWriter.Writer([track]);
+
+  return write.dataUri();
+}
+
+/**/
