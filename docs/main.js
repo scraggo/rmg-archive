@@ -110,10 +110,10 @@ function melody_d(notes) {
 let button = document.createElement("button");
 button.innerHTML = "New Random Melody";
 button.addEventListener("click", newRandom);
-document.body.append(button);
+document.body.prepend(button);
 
 function newRandom() {
   let newRandomMelody = melody_d(10);
   console.log(newRandomMelody);
-  document.getElementById("app").innerHTML += `<br>${newRandomMelody} - <a href="${melodyTest(melody_d(10))}" download="melodyTest.midi">Random Melody Test</a>`;
+  document.getElementById("app").innerHTML += `<br>${newRandomMelody} - <a href="${melodyTest(newRandomMelody)}" download="melodyTest.midi">Random Melody Test</a>`;
 }
