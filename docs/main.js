@@ -63,7 +63,7 @@ function melodyTest(randomMelody=undefined) {
   var track = new MidiWriter.Track();
   let noteArray = [];
   let melody = ['↑5', '↑6', '↓5', '↑2', '↑1', '↓5', '↓5', '↓2'];
-  let pitchMap = { '1': 'C', '2': 'D', '3': 'E', '4': 'F', '5': 'G', '6': 'A', '7': 'B'};
+  let pitchMap = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
   let duration = 2;
 
   if (randomMelody) {
@@ -88,11 +88,13 @@ function melodyTest(randomMelody=undefined) {
   return write.dataUri();
 }
 
-//let notes =  C,C#/Db,D,D#/Eb,E,F,F#/Gb,G,G#/Ab,A,A#/Bb,B,
+// http://computermusicresource.com/midikeys.html
+
+let notes = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 
 document.getElementById("app").innerHTML = `<a href="${hotCrossBun()}" download="Hot Cross Bun.midi">Hot Cross Bun</a>`;
 document.getElementById("app").innerHTML += `<br><a href="${trulyRandom()}" download="Truly Random.midi">Truly Random</a>`;
-document.getElementById("app").innerHTML += `<br><a href="${melodyTest()}" download="melodyTest.midi">Melody Test</a>`;    
+document.getElementById("app").innerHTML += `<br><a href="${melodyTest()}" download="melodyTest.midi">Melody Test</a><br>`;    
 
 
 let direction = ["↑", "↓"];
@@ -101,8 +103,8 @@ function melody_d(notes) {
   let melody = "";
   for (let x = 0; x < notes; x++) {
     let randDirection = direction[Math.floor(Math.random()*direction.length)];
-    let diatonic7 = getRandomInt(1, 7);
-    melody += `${randDirection}${diatonic7} `;
+    let diatonic12 = getRandomInt(0, 12); // 0 - 11. 12 Exclusive.
+    melody += `${randDirection}${diatonic12} `;
   }
   return melody.slice(0, melody.length-1);
 } // Direction + Number
@@ -114,6 +116,13 @@ document.body.prepend(button);
 
 function newRandom() {
   let newRandomMelody = melody_d(10);
+  let newRandomMelodyNotes = getNotes(newRandomMelody);
   console.log(newRandomMelody);
-  document.getElementById("app").innerHTML += `<br>${newRandomMelody} - <a href="${melodyTest(newRandomMelody)}" download="melodyTest.midi">Random Melody Test</a>`;
+  document.getElementById("app").innerHTML += `<br>${newRandomMelody.split(" ").map(m => "<span class='noteOut'>" + m + "</span>").join("")}<br>
+                                                   ${newRandomMelodyNotes.split(" ").map(m => "<span class='noteOut'>" + m + "</span>").join("")}<br>
+                                                   <a href="${melodyTest(newRandomMelody)}" download="melodyTest.midi">Random Melody Test</a><br>`;
 }
+
+function getNotes(melody) {
+  return melody.split(" ").map(m => notes[m[1]]).join(" ");
+} 
