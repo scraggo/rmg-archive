@@ -126,3 +126,138 @@ function newRandom() {
 function getNotes(melody) {
   return melody.split(" ").map(m => notes[m[1]]).join(" ");
 } 
+
+
+function zeroTo127(speed=8) {
+  var track = new MidiWriter.Track();
+
+  let noteArray = [];
+
+  // 0 to 127 inclusive
+  for (let i = 0; i<=127; i++) {
+    let pitch = [i];
+    let duration = speed;
+    let note = new MidiWriter.NoteEvent({pitch, duration});
+    noteArray.push(note);
+  }
+
+  track.addEvent(noteArray);
+
+  var write = new MidiWriter.Writer([track]);
+
+  return write.dataUri();
+}
+
+
+document.getElementById("app").innerHTML += `<br><a href="${zeroTo127()}" download="0t127.midi">0 to 127</a><br>`;
+document.getElementById("app").innerHTML += `<br><a href="${zeroTo127("t20")}" download="0t127.midi">0 to 127 (Faster)</a><br>`;    
+
+function otherC(speed=8) {
+  var track = new MidiWriter.Track();
+
+  let noteArray = [];
+
+  // 0 to 127 inclusive
+
+  let pitch = ["C-1"];
+  let duration = speed;
+  let note = new MidiWriter.NoteEvent({pitch, duration});
+  noteArray.push(note);
+
+  pitch = ["0"];
+  duration = speed;
+  note = new MidiWriter.NoteEvent({pitch, duration});
+  noteArray.push(note);
+
+  pitch = ["C0"];
+  duration = speed;
+  note = new MidiWriter.NoteEvent({pitch, duration});
+  noteArray.push(note);
+
+  pitch = ["12"];
+  duration = speed;
+  note = new MidiWriter.NoteEvent({pitch, duration});
+  noteArray.push(note);
+
+  pitch = ["C-2"];
+  duration = speed;
+  note = new MidiWriter.NoteEvent({pitch, duration});
+  noteArray.push(note);
+
+  pitch = ["C-2"];
+  duration = speed;
+  note = new MidiWriter.NoteEvent({pitch, duration});
+  noteArray.push(note);
+
+
+  track.addEvent(noteArray);
+
+  var write = new MidiWriter.Writer([track]);
+
+  return write.dataUri();
+}
+
+
+document.getElementById("app").innerHTML += `<br><a href="${otherC("1")}" download="otherC.midi">C-1, 0, C0, 12. C-2??</a><br>Confirmed. C-1 matches 0. C0 matches 12. C-2 does not exist<br>Higher than 127 seems to wrap back to 0 automatically.<br>`;
+
+function midC(speed=8) {
+  var track = new MidiWriter.Track();
+
+  let noteArray = [];
+
+  // 0 to 127 inclusive
+
+  let pitch = ["60"];
+  let duration = speed;
+  let note = new MidiWriter.NoteEvent({pitch, duration});
+  noteArray.push(note);
+
+  pitch = ["C4"];
+  duration = speed;
+  note = new MidiWriter.NoteEvent({pitch, duration});
+  noteArray.push(note);
+
+
+  track.addEvent(noteArray);
+
+  var write = new MidiWriter.Writer([track]);
+
+  return write.dataUri();
+}
+
+
+document.getElementById("app").innerHTML += `<br><a href="${midC("1")}" download="midC.midi">Middle C</a><br>`;
+document.getElementById("app").innerHTML += `<br>Confirmed note 60 = C4 = Middle C<br>Means our table looks like this<br>`;
+
+
+//This is so not pretty
+let tableNotes = ["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"];
+
+let table = document.createElement("table");
+table.style["border"] = "solid 1px black";
+table.style["margin"] = "5px";
+table.style["text-align"] = "center";
+table.style["table-layout"] = "fixed";
+document.body.appendChild(table);
+
+let row = table.insertRow();
+let cell = row.insertCell();
+
+cell.innerHTML = "<b>Octave</b>";
+
+tableNotes.forEach(each => {
+  cell = row.insertCell();
+  cell.innerHTML = `<b>${each}</b>`;
+})
+
+row = table.insertRow();
+for (let i = 0; i <= 127; i++) {
+  if (i % 12 === 0) {
+    row = table.insertRow();
+    cell = row.insertCell();
+    cell.appendChild(document.createTextNode(((i/12)-1).toFixed(0)));
+  }
+  cell = row.insertCell();
+  cell.style["width"] = "50px";
+  cell.appendChild(document.createTextNode(i));
+}

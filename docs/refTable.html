@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Midi Codes</title>
+</head>
+<body>
+
+<script>
+//This is so not pretty
+let tableNotes = ["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"];
+
+let table = document.createElement("table");
+table.style["border"] = "solid 1px black";
+table.style["margin"] = "5px";
+table.style["text-align"] = "center";
+table.style["table-layout"] = "fixed";
+document.body.appendChild(table);
+
+let row = table.insertRow();
+let cell = row.insertCell();
+
+cell.innerHTML = "<b>Octave</b>";
+
+tableNotes.forEach(each => {
+  cell = row.insertCell();
+  cell.innerHTML = `<b>${each}</b>`;
+})
+
+row = table.insertRow();
+for (let i = 0; i <= 127; i++) {
+  if (i % 12 === 0) {
+    row = table.insertRow();
+    cell = row.insertCell();
+    cell.appendChild(document.createTextNode(((i/12)-1).toFixed(0)));
+  }
+  cell = row.insertCell();
+  cell.style["width"] = "50px";
+  cell.appendChild(document.createTextNode(i));
+}
+</script>
+</body>
+</html>
