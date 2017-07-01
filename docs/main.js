@@ -11,7 +11,7 @@ let midiStyle = document.getElementById("midiStyle");
 let midiRange = document.getElementById("midiRange");
 let midiLength = document.getElementById("midiLength");
 let midiJump = document.getElementById("midiJump");
-let midiTempo = document.getElementById("midiTempo");
+let midiDuration = document.getElementById("midiDuration");
 let midiQTY = document.getElementById("midiQTY");
 let generate = document.getElementById("generate");
 let results = document.getElementById("results");
@@ -29,7 +29,7 @@ generate.addEventListener("click", function() {
 
   for (let i = 0; i<randomNotes.length; i++) {
     let pitch = [randomNotes[i]];
-    let duration = midiTempo.value;
+    let duration = midiDuration.value;
     let note = new MidiWriter.NoteEvent({pitch, duration});
     noteArray.push(note);
   }
