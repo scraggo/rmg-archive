@@ -1,119 +1,133 @@
 var MidiWriter = require('midi-writer-js');
+var getRandomMelody = require('./getRandomMelody');
 
-function hotCrossBun() {
-  var track = new MidiWriter.Track();
-
-  track.addEvent([
-        new MidiWriter.NoteEvent({pitch: ['E4','D4'], duration: '4'}),
-        new MidiWriter.NoteEvent({pitch: ['C4'], duration: '2'}),
-        new MidiWriter.NoteEvent({pitch: ['E4','D4'], duration: '4'}),
-        new MidiWriter.NoteEvent({pitch: ['C4'], duration: '2'}),
-        new MidiWriter.NoteEvent({pitch: ['C4', 'C4', 'C4', 'C4', 'D4', 'D4', 'D4', 'D4'], duration: '8'}),
-        new MidiWriter.NoteEvent({pitch: ['E4','D4'], duration: '4'}),
-        new MidiWriter.NoteEvent({pitch: ['C4'], duration: '2'})
-    ], function(event, index) {
-      return {sequential:true};
-    }
-  );
-
-  var write = new MidiWriter.Writer([track]);
-
-  return write.dataUri();
+// Needs polished. Temp implementation will add flat notes
+function numToNote(num) {
+  let tableNotes = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+  return tableNotes[Math.floor(num%12)] + Math.floor(num/12);
 }
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
-}
+let midiStyle = document.getElementById("midiStyle");
+let midiRange = document.getElementById("midiRange");
+let midiLength = document.getElementById("midiLength");
+let midiJump = document.getElementById("midiJump");
+let midiDuration = document.getElementById("midiDuration");
+let midiQTY = document.getElementById("midiQTY");
+let generate = document.getElementById("generate");
+let results = document.getElementById("results");
 
-function trulyRandom() {
-  var track = new MidiWriter.Track();
+generate.addEventListener("click", function() {
+  let type = midiStyle.options[midiStyle.selectedIndex].value;
+  let range = midiRange.value;
+  let length = midiLength.value;
+  let jump = midiJump.value;
+  let randomNotes = getRandomMelody({type, range, length, jump});
+
+  let track = new MidiWriter.Track();
 
   let noteArray = [];
-  let durations = ['2','4', '8'];
 
-  for (let i=0; i<50; i++) {
-    let notesHeld = getRandomInt(1, 12);
-    let pitch = [];
-    for (let j=0; j<notesHeld; j++) {
-      pitch.push(getRandomInt(20, 100));
-    }
-    let duration = durations[getRandomInt(0,3)];
+  for (let i = 0; i<randomNotes.length; i++) {
+    let pitch = [randomNotes[i]];
+    let duration = midiDuration.value;
     let note = new MidiWriter.NoteEvent({pitch, duration});
     noteArray.push(note);
   }
 
-  track.addEvent(noteArray, function(event, index) {
-      return {sequential:false};
-    }
-  );
+  track.addEvent(noteArray);
 
-  var write = new MidiWriter.Writer([track]);
+  let write = new MidiWriter.Writer([track]);
+  let file = write.dataUri();
 
-  return write.dataUri();
-}
+  let result = "";
 
+  for (let i = 0; i < midiQTY.value; i++) {
+    result += `<div style="position: relative" class="resultRow">`;
+    result += `${randomNotes.map(m=>`<span>${m}</span>`).join(" ")}`;
+    result += `<br>`;
+    result += `${randomNotes.map(m=>`<span>${numToNote(m)}</span>`).join(" ")}`;
 
+    result +=  `<a class="download" title="Download" href="${file}">
+                  <i class="fa fa-music fa-lg" aria-hidden="true"></i>
+                </a>`
 
-
-
-//melody test
-function melodyTest(randomMelody=undefined) {
-  var track = new MidiWriter.Track();
-  let noteArray = [];
-  let melody = ['↑5', '↑6', '↓5', '↑2', '↑1', '↓5', '↓5', '↓2'];
-  let pitchMap = { '1': 'C', '2': 'D', '3': 'E', '4': 'F', '5': 'G', '6': 'A', '7': 'B'};
-  let duration = 2;
-
-  if (randomMelody) {
-    melody = randomMelody.split(" ");
+    result += `</div>`;
   }
-  
-  for (let i=0; i<melody.length; i++) {
-    let pitchNum = melody[i][1]; 
-    let pitchLetter = pitchMap[pitchNum];
-    let pitch = [pitchLetter + '4']
-    //console.log(pitch, duration);
-    let note = new MidiWriter.NoteEvent({pitch, duration});
-    noteArray.push(note);
-  }
-    
-  track.addEvent(noteArray, function(event, index) {
-    return {sequential:true};
-  });
 
-  var write = new MidiWriter.Writer([track]);
+  results.innerHTML = result;
+})
 
-  return write.dataUri();
-}
+// For reference
 
-//let notes =  C,C#/Db,D,D#/Eb,E,F,F#/Gb,G,G#/Ab,A,A#/Bb,B,
+// function getRandomMelody( { type   = "diatonic", // diatonic or chromatic.
+//                             range  = "0 127",    // Any range string. Space as seperators.
+//                             length = 10,         // How many notes
+//                             jump   = 12,         // Biggest difference between notes
+//                             } = {} ) {           // If no object passed all defaults used
 
-document.getElementById("app").innerHTML = `<a href="${hotCrossBun()}" download="Hot Cross Bun.midi">Hot Cross Bun</a>`;
-document.getElementById("app").innerHTML += `<br><a href="${trulyRandom()}" download="Truly Random.midi">Truly Random</a>`;
-document.getElementById("app").innerHTML += `<br><a href="${melodyTest()}" download="melodyTest.midi">Melody Test</a>`;    
+// function zeroTo127(speed=8) {
+//   var track = new MidiWriter.Track();
+//   let noteArray = [];
+//   for (let i = 0; i<=127; i++) {
+//     let pitch = [i];
+//     let duration = speed;
+//     let note = new MidiWriter.NoteEvent({pitch, duration});
+//     noteArray.push(note);
+//   }
+//   track.addEvent(noteArray);
+//   var write = new MidiWriter.Writer([track]);
+//   return write.dataUri();
+// }
 
+// function zeroTo127dia(speed=8) {
+//   let wholeNoteBases = [0, 2, 4, 5, 7, 9, 11]; // For determining diatonic
+//   var track = new MidiWriter.Track();
+//   let noteArray = [];
+//   for (let i = 0; i<=127; i++) {
+//     if (!wholeNoteBases.includes(Math.floor(i % 12))) continue; // Skip non diatomic
+//     let pitch = [i];
+//     let duration = speed;
+//     let note = new MidiWriter.NoteEvent({pitch, duration});
+//     noteArray.push(note);
+//   }
+//   track.addEvent(noteArray);
+//   var write = new MidiWriter.Writer([track]);
+//   return write.dataUri();
+// }
 
-let direction = ["↑", "↓"];
+// document.body.innerHTML += `<a href="${zeroTo127()}" download="0t127.midi">0 to 127</a><br>`;
+// document.body.innerHTML += `<a href="${zeroTo127("t20")}" download="0t127.midi">0 to 127 (Faster)</a><br><br>`;    
+// document.body.innerHTML += `<a href="${zeroTo127dia()}" download="0t127.midi">0 to 127 Diatomic</a><br>`;
+// document.body.innerHTML += `<a href="${zeroTo127dia("t20")}" download="0t127.midi">0 to 127 Diatomic(Faster)</a><br><br>`;    
 
-function melody_d(notes) {
-  let melody = "";
-  for (let x = 0; x < notes; x++) {
-    let randDirection = direction[Math.floor(Math.random()*direction.length)];
-    let diatonic7 = getRandomInt(1, 7);
-    melody += `${randDirection}${diatonic7} `;
-  }
-  return melody.slice(0, melody.length-1);
-} // Direction + Number
+// //This is so not pretty
+// let tableNotes = ["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"];
 
-let button = document.createElement("button");
-button.innerHTML = "New Random Melody";
-button.addEventListener("click", newRandom);
-document.body.prepend(button);
+// let table = document.createElement("table");
+// table.style["border"] = "solid 1px black";
+// table.style["margin"] = "5px auto";
+// table.style["text-align"] = "center";
+// table.style["table-layout"] = "fixed";
+// document.body.appendChild(table);
 
-function newRandom() {
-  let newRandomMelody = melody_d(10);
-  console.log(newRandomMelody);
-  document.getElementById("app").innerHTML += `<br>${newRandomMelody} - <a href="${melodyTest(newRandomMelody)}" download="melodyTest.midi">Random Melody Test</a>`;
-}
+// let row = table.insertRow();
+// let cell = row.insertCell();
+
+// cell.innerHTML = "<b>Octave</b>";
+
+// tableNotes.forEach(each => {
+//   cell = row.insertCell();
+//   cell.innerHTML = `<b>${each}</b>`;
+// })
+
+// row = table.insertRow();
+// for (let i = 0; i <= 127; i++) {
+//   if (i % 12 === 0) {
+//     row = table.insertRow();
+//     cell = row.insertCell();
+//     cell.appendChild(document.createTextNode(((i/12)-1).toFixed(0)));
+//   }
+//   cell = row.insertCell();
+//   cell.style["width"] = "50px";
+//   cell.appendChild(document.createTextNode(i));
+// }

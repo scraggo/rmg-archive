@@ -25,3 +25,7 @@ Server ideas:
 - Github pages
 - Heroku
 - ?
+
+
+Confirmed note 60 = C4 = Middle C. Some standards its C3, some C4, some C5.
+https://www.youtube.com/watch?v=FtqgqYRDTDg :)
