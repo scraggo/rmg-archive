@@ -17,31 +17,33 @@ let generate = document.getElementById("generate");
 let results = document.getElementById("results");
 
 generate.addEventListener("click", function() {
-  let type = midiStyle.options[midiStyle.selectedIndex].value;
-  let range = midiRange.value;
-  let length = midiLength.value;
-  let jump = midiJump.value;
-  let randomNotes = getRandomMelody({type, range, length, jump});
-
-  let track = new MidiWriter.Track();
-
-  let noteArray = [];
-
-  for (let i = 0; i<randomNotes.length; i++) {
-    let pitch = [randomNotes[i]];
-    let duration = midiDuration.value;
-    let note = new MidiWriter.NoteEvent({pitch, duration});
-    noteArray.push(note);
-  }
-
-  track.addEvent(noteArray);
-
-  let write = new MidiWriter.Writer([track]);
-  let file = write.dataUri();
-
   let result = "";
 
-  for (let i = 0; i < midiQTY.value; i++) {
+  let melodies = midiQTY.value || 1;
+  for (let i = 0; i < melodies; i++) {
+
+    let type = midiStyle.options[midiStyle.selectedIndex].value;
+    let range = midiRange.value || "";
+    let length = midiLength.value || 10;
+    let jump = midiJump.value || 12;
+    let randomNotes = getRandomMelody({type, range, length, jump});
+
+    let track = new MidiWriter.Track();
+
+    let noteArray = [];
+
+    for (let i = 0; i<randomNotes.length; i++) {
+      let pitch = [randomNotes[i]];
+      let duration = midiDuration.value || 2;
+      let note = new MidiWriter.NoteEvent({pitch, duration});
+      noteArray.push(note);
+    }
+
+    track.addEvent(noteArray);
+
+    let write = new MidiWriter.Writer([track]);
+    let file = write.dataUri();
+
     result += `<div style="position: relative" class="resultRow">`;
     result += `${randomNotes.map(m=>`<span>${m}</span>`).join(" ")}`;
     result += `<br>`;
