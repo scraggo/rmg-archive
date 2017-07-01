@@ -2,7 +2,11 @@
 
 [Random Music Generators - GitHug Pages](https://scraggo.github.io/Random-Music-Generators/) - scraggo
 
-[Random Music Generators - GitHug Pages](https://volv.github.io/Random-Music-Generators/) - volv
+*July 2017*
+
+Random Melody Generator V1 in good working form. 1.0, should we say?
+
+*June 2017*
 
 The node_modules folder is quickly spiraling out of control.
 
