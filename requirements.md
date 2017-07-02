@@ -94,6 +94,8 @@ Guide to rhythmic values:
 
 - Have this rhythm repeat 8 times
 
+- *support was recently added for 8t and 16t! Also: for 5/24, we can do ['8', '8t'] and they'll be added together. Sweet!
+
 ## Random Mode & Meter Generator
 
 Codepen
