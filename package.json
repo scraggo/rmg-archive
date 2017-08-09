@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "dependencies": {
+    "lite-server": "^2.3.0",
     "midi-writer-js": "^1.4.9",
     "watchify": "^3.9.0"
   },
@@ -16,6 +17,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify docs/main.js -o docs/bundle.js",
-    "watch": "watchify docs/main.js -o docs/bundle.js --debug --verbose"
+    "watch": "watchify docs/main.js -o docs/bundle.js --debug --verbose",
+    "dev" : "lite-server --baseDir=docs"
   }
 }

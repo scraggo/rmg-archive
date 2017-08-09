@@ -27,3 +27,9 @@ My first time properly dabbling with all of this also :)
 
 In theory should be possible to delete local copy. Clone this. and ```npm``` install will bring you back to where you need to be.
 Edit - I just did exactly that. Worked perfectly.
+
+
+npm run watch - rebrowserfies things on change
+npm run dev - starts auto updating server.
+
+Have also been playing around with 'now' (Would need to install seperately) For insta publishing node projects.
