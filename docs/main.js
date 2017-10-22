@@ -7,11 +7,11 @@ function numToNote(num) {
   return tableNotes[Math.floor(num%12)] + Math.floor(num/12);
 }
 
-let midiStyle = document.getElementById("midiStyle");
+let tonalityOptions = document.getElementById("tonalityOptions");
 let midiRange = document.getElementById("midiRange");
 let midiLength = document.getElementById("midiLength");
 let midiJump = document.getElementById("midiJump");
-let midiDuration = document.getElementById("midiDuration");
+let lengthValues = document.getElementById("lengthValues");
 let midiQTY = document.getElementById("midiQTY");
 let generate = document.getElementById("generate");
 let results = document.getElementById("results");
@@ -22,7 +22,7 @@ generate.addEventListener("click", function() {
   let melodies = midiQTY.value || 1;
   for (let i = 0; i < melodies; i++) {
 
-    let type = midiStyle.options[midiStyle.selectedIndex].value;
+    let type = tonalityOptions.options[tonalityOptions.selectedIndex].value;
     let range = midiRange.value || "";
     let length = midiLength.value || 10;
     let jump = midiJump.value || 12;
@@ -34,7 +34,7 @@ generate.addEventListener("click", function() {
 
     for (let i = 0; i<randomNotes.length; i++) {
       let pitch = [randomNotes[i]];
-      let duration = midiDuration.value || 2;
+      let duration = lengthValues.value || 2;
       let note = new MidiWriter.NoteEvent({pitch, duration});
       noteArray.push(note);
     }
