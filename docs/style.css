@@ -1,0 +1,49 @@
+body {
+  background: #e1f7ff;
+  background: -webkit-radial-gradient(circle, #e1f7ff, #0067d0);
+  text-align: center;
+}
+  .noteOut {
+    display: inline-block;
+    margin-top: 2px;
+    text-align: center;
+    width: 30px;
+    border-left: solid blue 1px;
+  }
+  #app {
+    width: 80%;
+    margin: 20px auto;
+    background: #dedede;
+    border: solid 0.5px black;
+    padding: 10px;
+  }
+  label {
+    display: inline-block;
+    width: 120px;
+  }
+  input, select {
+    margin: 5px;
+    width: 100px;
+    text-align: center;
+  }
+  .resultRow {
+    width: 85%;
+    margin: 5px auto;
+    padding: 5px 5%;
+    background: rgba(114, 169, 255, 0.7);
+    font-size: 20px;
+    box-shadow: 1px 1px 1px 1px black;
+  }
+  .resultRow:hover {
+    background: rgba(114, 169, 255, 0.4);
+  }
+  .resultRow span {
+    display: inline-block;
+    width: 40px;
+  }
+  .download {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 95%;"
+  }

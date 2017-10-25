@@ -3,57 +3,7 @@
 <head>
   <meta charset="UTF-8"> 
   <title>Random Music Generators</title>
-  <style>
-  body {
-    background: #e1f7ff;
-    background: -webkit-radial-gradient(circle, #e1f7ff, #0067d0);
-    text-align: center;
-  }
-    .noteOut {
-      display: inline-block;
-      margin-top: 2px;
-      text-align: center;
-      width: 30px;
-      border-left: solid blue 1px;
-    }
-    #app {
-      width: 80%;
-      margin: 20px auto;
-      background: #dedede;
-      border: solid 0.5px black;
-      padding: 10px;
-    }
-    label {
-      display: inline-block;
-      width: 120px;
-    }
-    input, select {
-      margin: 5px;
-      width: 100px;
-      text-align: center;
-    }
-    .resultRow {
-      width: 85%;
-      margin: 5px auto;
-      padding: 5px 5%;
-      background: rgba(114, 169, 255, 0.7);
-      font-size: 20px;
-      box-shadow: 1px 1px 1px 1px black;
-    }
-    .resultRow:hover {
-      background: rgba(114, 169, 255, 0.4);
-    }
-    .resultRow span {
-      display: inline-block;
-      width: 40px;
-    }
-    .download {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 95%;"
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="style.css">
   <script src="https://use.fontawesome.com/3d44354ccb.js"></script>
 </head>
 <body>
@@ -69,7 +19,10 @@
         <option value="chromatic">Chromatic</option>
       </select>
     </label>
-    <label for="midiRange">Note Range<input id="midiRange" placeholder="G3 G5" value="G3 G5"></label>
+    <label for="midiRange">
+      <a href="refTable.html" target="_blank">Note Range</a>
+      <input id="midiRange" placeholder="G3 G5" value="G3 G5">
+    </label>
     <label for="midiLength">Midi Length<input type="number" id="midiLength" placeholder="10" value="10"></label>
     <label for="midiJump">Max Jump<input type="number" id="midiJump" placeholder="12" value="12"></label>
     <label for="lengthValues">Note Durations
@@ -96,7 +49,7 @@
   </div>
   
   <!-- <a href="refTable.html" style="position: fixed; left: 10px; top: 10px;">Midi Note Ref</a> -->
-  <a href="refTable.html">Midi Note Ref</a>
+  
 
 
   <!-- This way main.js (bundle.js) can access DOM. -->
