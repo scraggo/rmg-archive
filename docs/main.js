@@ -4,7 +4,7 @@ var getRandomMelody = require('./getRandomMelody');
 // Needs polished. Temp implementation will add flat notes
 function numToNote(num) {
   let tableNotes = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-  return tableNotes[Math.floor(num%12)] + Math.floor(num/12);
+  return tableNotes[Math.floor(num%12)] + (Math.floor(num/12) - 1);
 }
 
 let tonalityOptions = document.getElementById("tonalityOptions");
