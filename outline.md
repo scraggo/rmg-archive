@@ -1,6 +1,6 @@
 # Random-Music-Generators
 
-PROJECT OUTLINE
+# PROJECT OUTLINE
 
 ## Random Melody Generator
 
@@ -159,3 +159,16 @@ Server ideas:
 
 Confirmed note 60 = C4 = Middle C. Some standards its C3, some C4, some C5.
 https://www.youtube.com/watch?v=FtqgqYRDTDg :)
+
+# Changelog
+
+*Sept 2017*
+- Slight tweaks in index.html styles.
+
+*July 2017*
+- Random Melody Generator V1 in good working form.
+
+*June 2017*
+- The node_modules folder is quickly spiraling out of control.
+- Initial package.json added.
+- Have added node_modules to .gitignore
